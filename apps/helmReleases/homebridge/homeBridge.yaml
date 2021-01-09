@@ -1,5 +1,6 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
+version: 1.0.1
 metadata:
   name: homebridge
   namespace: apps
@@ -9,6 +10,7 @@ spec:
     git: https://github.com/bhicks329/charts
     ref: master
     path: charts/homebridge
+    version: 1.0.2
   values:
     service:
       type: LoadBalancer

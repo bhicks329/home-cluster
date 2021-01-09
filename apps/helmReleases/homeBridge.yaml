@@ -1,10 +1,10 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: azure-arc-sample
-  namespace: arc-k8s-demo
+  name: homeBridge
+  namespace: apps
 spec:
-  releaseName: arc-k8s-demo
+  releaseName: homeBridge
   chart:
     git: https://github.com/bhicks329/charts
     ref: master

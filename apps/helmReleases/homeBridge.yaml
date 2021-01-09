@@ -4,7 +4,7 @@ metadata:
   name: homeBridge
   namespace: apps
 spec:
-  releaseName: homeBridge
+  releaseName: homebridge
   chart:
     git: https://github.com/bhicks329/charts
     ref: master

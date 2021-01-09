@@ -10,4 +10,5 @@ spec:
     ref: master
     path: charts/homebridge
   values:
-    service.type: LoadBalancer
+    service:
+      type: LoadBalancer

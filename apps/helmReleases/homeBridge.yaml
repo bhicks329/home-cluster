@@ -1,7 +1,7 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: homeBridge
+  name: homebridge
   namespace: apps
 spec:
   releaseName: homebridge

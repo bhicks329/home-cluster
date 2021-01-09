@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hoobs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hoobs
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: hoobs
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        kubernetes.io/os: linux
+      volumes:
+      - name: hoobs-data
+        persistentVolumeClaim:
+          claimName: hoobs-nfs-data
+      containers:
+      - name: hoobs
+        image: hoobs/hoobs
+        volumeMounts:
+        - name: hoobs-data
+          mountPath: hoobs
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "500m"
+          limits:
+            memory: "2048Mi"
+            cpu: "2000m"
+      priorityClassName: high-priority
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hoobs
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: hoobs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hoobs-bridge
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 51826
+    targetPort: 51826
+  selector:
+    app: hoobs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hoobs-mdns
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5353
+    targetPort: 5353
+    protocol: UDP
+  selector:
+    app: hoobs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hoobs-50341
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 50341
+    targetPort: 50341
+    protocol: UDP
+  selector:
+    app: hoobs

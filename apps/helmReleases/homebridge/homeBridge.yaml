@@ -14,7 +14,7 @@ spec:
   values:
     podSecurityContext: 
       runAsUser: 1027
-      runasGroup: 100
+      runAsGroup: 100
     image:
       tag: "3.3.0"
     service:

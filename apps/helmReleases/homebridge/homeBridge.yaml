@@ -12,6 +12,8 @@ spec:
     path: charts/homebridge
     version: 1.0.2
   values:
+    podSecurityContext: 
+      fsGroup: 1000
     image:
       tag: "3.3.0"
     service:

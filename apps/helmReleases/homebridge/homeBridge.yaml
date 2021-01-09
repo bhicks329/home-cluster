@@ -12,9 +12,8 @@ spec:
     path: charts/homebridge
     version: 1.0.2
   values:
-    podSecurityContext: 
-      runAsUser: 1027
-      runAsGroup: 100
+    puid: 1027
+    pgid: 100
     image:
       tag: "3.3.0"
     service:

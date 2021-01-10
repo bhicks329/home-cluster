@@ -6,11 +6,10 @@ metadata:
   namespace: monitoring
 spec:
   chart:
-      chart:
-        version: 12.9.1
-        git: https://github.com/prometheus-community/helm-charts/
-        path: charts/kube-prometheus-stack
-        ref: master
+      version: 12.9.1
+      git: https://github.com/prometheus-community/helm-charts/
+      path: charts/kube-prometheus-stack
+      ref: master
   values:
     # defaultRules:
     #   rules:

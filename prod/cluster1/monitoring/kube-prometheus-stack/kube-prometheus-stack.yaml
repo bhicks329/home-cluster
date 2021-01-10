@@ -9,7 +9,7 @@ spec:
       version: 12.9.1
       git: https://github.com/prometheus-community/helm-charts
       path: charts/kube-prometheus-stack
-      ref: master
+      ref: main
   values:
     # defaultRules:
     #   rules:

@@ -8,7 +8,7 @@ spec:
   releaseName: homebridge
   chart:
     git: https://github.com/bhicks329/charts
-    ref: master
+    ref: main
     path: charts/homebridge
     version: 1.0.2
   values:

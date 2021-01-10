@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
       version: 12.9.1
-      git: https://github.com/prometheus-community/helm-charts/
+      git: https://github.com/prometheus-community/helm-charts
       path: charts/kube-prometheus-stack
       ref: master
   values:

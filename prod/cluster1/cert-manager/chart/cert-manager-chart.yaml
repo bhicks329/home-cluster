@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+spec:
+  interval: 5m
+  chart:
+    git: https://github.com/jetstack/cert-manager
+    ref: main
+    path: deploy/charts/cert-manager
+    version: v1.2.0
+  values:
+    installCRDs: true
+    webhook:
+      enabled: true
+    cainjector:
+      replicaCount: 1
+      # extraArgs:
+      #   - --leader-elect=false
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
+        prometheusInstance: monitoring

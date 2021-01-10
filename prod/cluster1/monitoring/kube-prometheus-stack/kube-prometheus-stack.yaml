@@ -42,9 +42,9 @@ spec:
         tolerations:
         - key: "arm"
           operator: "Exists"
-        podMetadata:
-          annotations:
-            backup.velero.io/backup-volumes: alertmanager-kube-prometheus-stack-alertmanager-db
+        # podMetadata:
+        #   annotations:
+        #     backup.velero.io/backup-volumes: alertmanager-kube-prometheus-stack-alertmanager-db
       # ingress:
       #   enabled: true
       #   annotations:
@@ -110,8 +110,8 @@ spec:
       #   operator: "Exists"
       deploymentStrategy:
         type: Recreate
-      podAnnotations:
-        backup.velero.io/backup-volumes: storage
+      # podAnnotations:
+      #   backup.velero.io/backup-volumes: storage
       persistence:
         enabled: true
         storageClassName: "nfs-csi"
@@ -226,45 +226,45 @@ spec:
         access: proxy
         url: http://thanos-query-http:10902/
         isDefault: true
-      - name: loki
-        type: loki
-        access: proxy
-        url: http://loki.logs.svc.cluster.local:3100
-      - name: influxdb
-        type: influxdb
-        access: proxy
-        url: http://influxdb:8086
-        database: telegraf
-      - name: cable_modem_stats
-        type: influxdb
-        access: proxy
-        url: http://influxdb:8086
-        database: cable_modem_stats
-      - name: comcast
-        type: influxdb
-        access: proxy
-        url: http://influxdb:8086
-        database: comcast
-      - name: home_assistant
-        type: influxdb
-        access: proxy
-        url: http://influxdb:8086
-        database: home_assistant
-      - name: speedtests
-        type: influxdb
-        access: proxy
-        url: http://influxdb:8086
-        database: speedtests
-      - name: uptimerobot
-        type: influxdb
-        access: proxy
-        url: http://influxdb:8086
-        database: uptimerobot
-      - name: TrueNAS
-        type: influxdb
-        access: proxy
-        url: http://influxdb:8086
-        database: graphitedb
+      # # - name: loki
+      # #   type: loki
+      # #   access: proxy
+      # #   url: http://loki.logs.svc.cluster.local:3100
+      # - name: influxdb
+      #   type: influxdb
+      #   access: proxy
+      #   url: http://influxdb:8086
+      #   database: telegraf
+      # # - name: cable_modem_stats
+      # #   type: influxdb
+      # #   access: proxy
+      # #   url: http://influxdb:8086
+      # #   database: cable_modem_stats
+      # # - name: comcast
+      # #   type: influxdb
+      # #   access: proxy
+      # #   url: http://influxdb:8086
+      # #   database: comcast
+      # - name: home_assistant
+      #   type: influxdb
+      #   access: proxy
+      #   url: http://influxdb:8086
+      #   database: home_assistant
+      # - name: speedtests
+      #   type: influxdb
+      #   access: proxy
+      #   url: http://influxdb:8086
+      #   database: speedtests
+      # - name: uptimerobot
+      #   type: influxdb
+      #   access: proxy
+      #   url: http://influxdb:8086
+      #   database: uptimerobot
+      # - name: TrueNAS
+      #   type: influxdb
+      #   access: proxy
+      #   url: http://influxdb:8086
+      #   database: graphitedb
       grafana.ini:
         paths:
           data: /var/lib/grafana/data
@@ -336,15 +336,15 @@ spec:
         # tolerations:
         # - key: "arm"
         #   operator: "Exists"
-        podMetadata:
-          annotations:
-            backup.velero.io/backup-volumes: prometheus-kube-prometheus-stack-prometheus-db
-        thanos:
-          image: quay.io/thanos/thanos:v0.15.0
-          version: v0.15.0
-          objectStorageConfig:
-            name: thanos
-            key: object-store.yaml
+        # podMetadata:
+        #   annotations:
+        #     backup.velero.io/backup-volumes: prometheus-kube-prometheus-stack-prometheus-db
+        # thanos:
+        #   image: quay.io/thanos/thanos:v0.15.0
+        #   version: v0.15.0
+        #   objectStorageConfig:
+        #     name: thanos
+        #     key: object-store.yaml
   # valuesFrom:
   # - kind: Secret
   #   name: "kube-prometheus-stack-helm-values"

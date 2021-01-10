@@ -1,22 +1,16 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
   namespace: monitoring
 spec:
-  interval: 5m
   chart:
-    spec:
-      # renovate: registryUrl=https://prometheus-community.github.io/helm-charts
-      chart: kube-prometheus-stack
-      version: 12.9.1
-      sourceRef:
-        kind: HelmRepository
-        name: prometheus-community-charts
-        namespace: flux-system
-      interval: 5m
-  timeout: 20m
+      chart:
+        version: 12.9.1
+        git: https://github.com/prometheus-community/helm-charts/
+        path: charts/kube-prometheus-stack
+        ref: master
   values:
     # defaultRules:
     #   rules:
@@ -42,7 +36,7 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: rook-ceph-block
+              storageClassName: nfs-csi
               resources:
                 requests:
                   storage: 10Gi
@@ -52,16 +46,16 @@ spec:
         podMetadata:
           annotations:
             backup.velero.io/backup-volumes: alertmanager-kube-prometheus-stack-alertmanager-db
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/ingress.class: "nginx"
-          nginx.ingress.kubernetes.io/auth-url: "https://auth.eviljungle.com/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.eviljungle.com/oauth2/start
-        hosts: [prom-alert.eviljungle.com]
-        tls:
-        - hosts:
-          - prom-alert.eviljungle.com
+      # ingress:
+      #   enabled: true
+      #   annotations:
+      #     kubernetes.io/ingress.class: "nginx"
+      #     nginx.ingress.kubernetes.io/auth-url: "https://auth.eviljungle.com/oauth2/auth"
+      #     nginx.ingress.kubernetes.io/auth-signin: https://auth.eviljungle.com/oauth2/start
+      #   hosts: [prom-alert.eviljungle.com]
+      #   tls:
+      #   - hosts:
+      #     - prom-alert.eviljungle.com
       config:
         global:
           resolve_timeout: 5m
@@ -121,7 +115,7 @@ spec:
         backup.velero.io/backup-volumes: storage
       persistence:
         enabled: true
-        storageClassName: "rook-ceph-block"
+        storageClassName: "nfs-csi"
         size: 10Gi
         accessModes:
         - ReadWriteOnce
@@ -129,15 +123,15 @@ spec:
         GF_EXPLORE_ENABLED: true
         GF_DISABLE_SANITIZE_HTML: true
         GF_PANELS_DISABLE_SANITIZE_HTML: true
-        VAR_BLOCKY_URL: "http://blocky.default.svc.cluster.local:4000"
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/ingress.class: "nginx"
-        hosts: [grafana.eviljungle.com]
-        tls:
-        - hosts:
-          - grafana.eviljungle.com
+        # VAR_BLOCKY_URL: "http://blocky.default.svc.cluster.local:4000"
+      # ingress:
+      #   enabled: true
+      #   annotations:
+      #     kubernetes.io/ingress.class: "nginx"
+      #   hosts: [grafana.eviljungle.com]
+      #   tls:
+      #   - hosts:
+      #     - grafana.eviljungle.com
       plugins:
       - natel-discrete-panel
       - pr0ps-trackmap-panel
@@ -220,56 +214,6 @@ spec:
           # netdata:
           #   url: https://raw.githubusercontent.com/billimek/k8s-gitops/master/monitoring/prometheus-operator/grafana-dashboards/netdata.json
           #   datasource: Prometheus
-        teslamate:
-          charge-level:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/charge-level.json
-            # datasource: TeslaMate
-          charges:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/charges.json
-            # datasource: TeslaMate
-          charging-stats:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/charging-stats.json
-            # datasource: TeslaMate
-          drive-stats:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/drive-stats.json
-            # datasource: TeslaMate
-          drives:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/drives.json
-            # datasource: TeslaMate
-          efficiency:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/efficiency.json
-            # datasource: TeslaMate
-          locations:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/locations.json
-            # datasource: TeslaMate
-          mileage:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/mileage.json
-            # datasource: TeslaMate
-          overview:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/overview.json
-            # datasource: TeslaMate
-          projected-range:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/projected-range.json
-            # datasource: TeslaMate
-          states:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/states.json
-            # datasource: TeslaMate
-          trip:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/trip.json
-            # datasource: TeslaMate
-          updates:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/updates.json
-            # datasource: TeslaMate
-          vampire-drain:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/vampire-drain.json
-            # datasource: TeslaMate
-          visited:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/visited.json
-            # datasource: TeslaMate
-          charge-details:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/internal/charge-details.json
-          drive-details:
-            url: https://raw.githubusercontent.com/adriankumpf/teslamate/v1.21.0/grafana/dashboards/internal/drive-details.json
       sidecar:
         datasources:
           enabled: true
@@ -355,16 +299,16 @@ spec:
       - key: "node-role.kubernetes.io/master"
         operator: "Exists"
     prometheus:
-      ingress:
-        enabled: true
-        annotations:
-          kubernetes.io/ingress.class: "nginx"
-          nginx.ingress.kubernetes.io/auth-url: "https://auth.eviljungle.com/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.eviljungle.com/oauth2/start
-        hosts: [prom-server.eviljungle.com]
-        tls:
-        - hosts:
-          - prom-server.eviljungle.com
+      # ingress:
+      #   enabled: true
+      #   annotations:
+      #     kubernetes.io/ingress.class: "nginx"
+      #     nginx.ingress.kubernetes.io/auth-url: "https://auth.eviljungle.com/oauth2/auth"
+      #     nginx.ingress.kubernetes.io/auth-signin: https://auth.eviljungle.com/oauth2/start
+      #   hosts: [prom-server.eviljungle.com]
+      #   tls:
+      #   - hosts:
+      #     - prom-server.eviljungle.com
       prometheusSpec:
         # image:
         #   repository: quay.io/prometheus/prometheus
@@ -386,7 +330,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: rook-ceph-block
+              storageClassName: nfs-csi
               resources:
                 requests:
                   storage: 10Gi

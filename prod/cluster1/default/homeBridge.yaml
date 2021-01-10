@@ -1,9 +1,9 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
-version: 1.1.3
+version: 1.1.4
 metadata:
   name: homebridge
-  namespace: monitoring
+  namespace: homebridge
 spec:
   releaseName: homebridge
   chart:

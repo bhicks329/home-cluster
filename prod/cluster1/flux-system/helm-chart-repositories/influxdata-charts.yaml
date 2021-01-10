@@ -5,6 +5,7 @@ metadata:
   name: influxdata-charts
   namespace: flux-system
 spec:
+  helmVersion: v3
   interval: 10m
   url: https://helm.influxdata.com/
   timeout: 3m

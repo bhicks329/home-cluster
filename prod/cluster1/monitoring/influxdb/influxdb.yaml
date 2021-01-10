@@ -8,6 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
+      helmVersion: v3
       # renovate: registryUrl=https://helm.influxdata.com/
       chart: influxdb
       version: 4.8.10

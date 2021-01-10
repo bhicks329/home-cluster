@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     git: https://github.com/jetstack/cert-manager
-    ref: main
+    ref: master
     path: deploy/charts/cert-manager
     version: v1.2.0
   values:

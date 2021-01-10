@@ -1,21 +1,15 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: influxdb
   namespace: monitoring
 spec:
-  interval: 5m
+  releaseName: influxdb
   chart:
-    spec:
-      # renovate: registryUrl=https://helm.influxdata.com/
-      chart: influxdb
-      version: 4.8.10
-      sourceRef:
-        kind: HelmRepository
-        name: influxdata-charts
-        namespace: flux-system
-      interval: 5m
+    git: https://github.com/influxdata/helm-charts/tree/master/charts
+    chart: influxdb
+    version: 4.8.10
   values:
     image:
       repository: "influxdb"

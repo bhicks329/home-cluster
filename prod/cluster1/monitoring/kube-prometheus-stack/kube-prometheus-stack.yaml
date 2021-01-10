@@ -265,18 +265,18 @@ spec:
       #   access: proxy
       #   url: http://influxdb:8086
       #   database: graphitedb
-      grafana.ini:
-        paths:
-          data: /var/lib/grafana/data
-          logs: /var/log/grafana
-          plugins: /var/lib/grafana/plugins
-          provisioning: /etc/grafana/provisioning
-        analytics:
-          check_for_updates: true
-        log:
-          mode: console
-        grafana_net:
-          url: https://grafana.net
+      # grafana.ini:
+      #   paths:
+      #     data: /var/lib/grafana/data
+      #     logs: /var/log/grafana
+      #     plugins: /var/lib/grafana/plugins
+      #     provisioning: /etc/grafana/provisioning
+      #   analytics:
+      #     check_for_updates: true
+      #   log:
+      #     mode: console
+      #   grafana_net:
+      #     url: https://grafana.net
     kubeEtcd:
       enabled: false
     kubeControllerManager:

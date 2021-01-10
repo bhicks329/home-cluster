@@ -12,7 +12,7 @@ spec:
     path: charts/homebridge
     version: 1.0.2
   values:
-    puid: 1027
+    puid: 1024
     pgid: 100
     image:
       tag: "3.3.0"

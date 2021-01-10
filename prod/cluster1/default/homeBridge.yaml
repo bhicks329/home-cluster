@@ -3,7 +3,7 @@ kind: HelmRelease
 version: 1.1.4
 metadata:
   name: homebridge
-  namespace: homebridge
+  namespace: default
 spec:
   releaseName: homebridge
   chart:

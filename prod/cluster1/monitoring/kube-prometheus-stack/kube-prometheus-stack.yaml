@@ -345,7 +345,7 @@ spec:
           objectStorageConfig:
             name: thanos
             key: object-store.yaml
-  valuesFrom:
-  - kind: Secret
-    name: "kube-prometheus-stack-helm-values"
-    optional: false
+  # valuesFrom:
+  # - kind: Secret
+  #   name: "kube-prometheus-stack-helm-values"
+  #   optional: false

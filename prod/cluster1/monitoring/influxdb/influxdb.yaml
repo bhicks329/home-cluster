@@ -8,7 +8,7 @@ spec:
   releaseName: influxdb
   chart:
     git: https://github.com/influxdata/helm-charts
-    path: tree/master/charts
+    path: charts/influxdb
     ref: master
     version: 4.8.10
   values:

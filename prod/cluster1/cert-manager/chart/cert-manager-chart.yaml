@@ -9,7 +9,7 @@ spec:
     git: https://github.com/jetstack/cert-manager
     ref: master
     path: deploy/charts/cert-manager
-    version: v1.2.0
+    version: v1.1.0
   values:
     installCRDs: true
     webhook:
